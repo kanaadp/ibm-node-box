@@ -34,10 +34,13 @@ app.post('/fire', function(request, response) {
   console.log("hi!");
   console.log(request.method);
   console.log(request.url);
+  console.log(request.body);
   response.statusCode = 200;
   response.render("pages/index");
 });
 
+
+//not being used!
 app.get('/fire', function(request, response) {
   console.log("hello!");
   console.log(request.method);
