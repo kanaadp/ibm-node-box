@@ -18,7 +18,6 @@ app.post('/test', function(request, response) {
   console.log("hello!");
   console.log(request.method);
   console.log(request.url);
-  console.log(request.headers);
   response.write('<html>');
 	response.write('<body>');
 	response.write('<h1>Hello, World!</h1>');
