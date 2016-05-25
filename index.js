@@ -21,6 +21,7 @@ app.post('/test', function(request, response) {
   response.statusCode = 200;
   response.setHeader('Content-Type', 'text/html');
   response.render("pages/index");
+  response.end();
 });
 
 app.get('/test', function(request, response) {
@@ -30,6 +31,7 @@ app.get('/test', function(request, response) {
   response.statusCode = 200;
   response.setHeader('Content-Type', 'text/html');
   response.render("pages/index");
+  response.end();
 });
 
 app.listen(app.get('port'), function() {
