@@ -1,3 +1,5 @@
+var file_id = null;
+
 var express = require('express');
 var app = express();
 
@@ -42,6 +44,7 @@ app.post('/fire', function(request, response) {
   console.log(request.body.user_name);
   console.log(request.body.user_id);
   console.log(request.body.auth_code);
+  console.log(request.body.file);
   response.end();
 });
 
