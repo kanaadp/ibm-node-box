@@ -14,7 +14,7 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
-app.get('/test', function(request, response) {
+app.post('/test', function(request, response) {
   console.log("hello!");
   console.log(request.method);
   console.log(request.url);
