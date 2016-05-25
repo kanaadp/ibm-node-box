@@ -15,6 +15,7 @@ app.get('/', function(request, response) {
 
 app.get('/test', function(request, response) {
   console.log("hello!");
+    response.render('pages/index');
 });
 
 app.listen(app.get('port'), function() {
