@@ -14,7 +14,32 @@ app.get('/', function(request, response) {
 });
 
 app.get('/test', function(request, response) {
-    console.log("hello!");
+  console.log("hello!");
+  var headers = request.headers;
+  var method = request.method;
+  var url = request.url;
+  var body = [];
+  request.on('error', function(err) {
+    console.error(err);
+  }).on('data', function(chunk) {
+    body.push(chunk);
+  }).on('end', function() {
+    body = Buffer.concat(body).toString();
+    // BEGINNING OF NEW STUFF
+
+    response.on('error', function(err) {
+      console.error(err);
+    });
+
+    response.statusCode = 200;
+
+    response.render('pages/index');
+    response.end();
+    // Note: the 2 lines above could be replaced with this next one:
+    // response.end(JSON.stringify(responseBody))
+
+    // END OF NEW STUFF
+  });
 });
 
 app.listen(app.get('port'), function() {
