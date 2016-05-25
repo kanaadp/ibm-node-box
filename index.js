@@ -18,17 +18,6 @@ app.post('/test', function(request, response) {
   console.log("hello!");
   console.log(request.method);
   console.log(request.url);
-
-  var body = [];
-    request.on('data', function(chunk) {
-      body.push(chunk);
-    }).on('end', function() {
-      body = Buffer.concat(body).toString();
-
-    })
-  console.log("body");
-  console.log(body);
-  console.log("======");
   response.statusCode = 200;
   response.setHeader('Content-Type', 'text/html');
   response.render("pages/index");
