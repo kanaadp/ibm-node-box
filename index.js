@@ -24,9 +24,11 @@ app.post('/test', function(request, response) {
       body.push(chunk);
     }).on('end', function() {
       body = Buffer.concat(body).toString();
-      response.end(body);
-    })
 
+    })
+  console.log("body");
+  console.log(body);
+  console.log("======");
   response.statusCode = 200;
   response.setHeader('Content-Type', 'text/html');
   response.render("pages/index");
