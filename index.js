@@ -18,12 +18,9 @@ app.post('/test', function(request, response) {
   console.log("hello!");
   console.log(request.method);
   console.log(request.url);
-  response.write('<html>');
-	response.write('<body>');
-	response.write('<h1>Hello, World!</h1>');
-	response.write('</body>');
-	response.write('</html>');
-	response.end();
+      response.statusCode = 200;
+    response.setHeader('Content-Type', 'text/html');
+  res.sendFile("pages/index.html")
 });
 
 app.listen(app.get('port'), function() {
