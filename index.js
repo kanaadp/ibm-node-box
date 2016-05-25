@@ -23,6 +23,15 @@ app.post('/test', function(request, response) {
   response.render("pages/index");
 });
 
+app.get('/test', function(request, response) {
+  console.log("hi!");
+  console.log(request.method);
+  console.log(request.url);
+  response.statusCode = 200;
+  response.setHeader('Content-Type', 'text/html');
+  response.render("pages/index");
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
