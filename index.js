@@ -42,6 +42,7 @@ app.post('/fire', function(request, response) {
   console.log(request.body.user_name);
   console.log(request.body.user_id);
   console.log(request.body.auth_code);
+  response.end();
 });
 
 
