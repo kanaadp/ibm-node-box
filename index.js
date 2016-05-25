@@ -10,6 +10,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 app.set('port', (process.env.PORT || 5000));
 
+var fs = require('fs');
+
+
+
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -44,8 +48,10 @@ app.post('/fire', function(request, response) {
   console.log(request.body.user_name);
   console.log(request.body.user_id);
   console.log(request.body.auth_code);
-  console.log(request.body.file);
-  response.end();
+  var file = fs.createWriteStream("file.jpg");
+  var request = http.get(request.body.file, function(response) {
+  response.pipe(file);
+});  response.end();
 });
 
 
