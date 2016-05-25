@@ -35,7 +35,7 @@ app.post('/fire', function(request, response) {
   console.log(request.method);
   console.log(request.url);
   console.log(request.params);
-  console.log(request.body);
+  console.log(request.body.file_name);
   response.statusCode = 200;
   response.render("pages/index");
 });
