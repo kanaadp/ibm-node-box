@@ -15,7 +15,7 @@ app.get('/', function(request, response) {
 });
 
 app.post('/test', function(request, response) {
-  console.log("hello!");
+  console.log("mmmm!");
   console.log(request.method);
   console.log(request.url);
   response.statusCode = 200;
@@ -23,7 +23,7 @@ app.post('/test', function(request, response) {
 });
 
 app.get('/test', function(request, response) {
-  console.log("hi!");
+  console.log("yo!");
   console.log(request.method);
   console.log(request.url);
   response.statusCode = 200;
