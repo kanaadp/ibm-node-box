@@ -20,7 +20,7 @@ app.post('/test', function(request, response) {
   console.log(request.url);
       response.statusCode = 200;
     response.setHeader('Content-Type', 'text/html');
-  response.sendFile("pages/index.html")
+  response.render("pages/index");
 });
 
 app.listen(app.get('port'), function() {
