@@ -10,36 +10,16 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
+
   response.render('pages/index');
 });
 
 app.get('/test', function(request, response) {
   console.log("hello!");
-  var headers = request.headers;
-  var method = request.method;
-  var url = request.url;
-  var body = [];
-  request.on('error', function(err) {
-    console.error(err);
-  }).on('data', function(chunk) {
-    body.push(chunk);
-  }).on('end', function() {
-    body = Buffer.concat(body).toString();
-    // BEGINNING OF NEW STUFF
+  console.log(request.method);
+  console.log(request.url);
+  console.log(request.headers);
 
-    response.on('error', function(err) {
-      console.error(err);
-    });
-
-    response.statusCode = 200;
-
-    response.render('pages/index');
-    response.end();
-    // Note: the 2 lines above could be replaced with this next one:
-    // response.end(JSON.stringify(responseBody))
-
-    // END OF NEW STUFF
-  });
 });
 
 app.listen(app.get('port'), function() {
