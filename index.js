@@ -19,7 +19,12 @@ app.get('/test', function(request, response) {
   console.log(request.method);
   console.log(request.url);
   console.log(request.headers);
-
+  response.write('<html>');
+	response.write('<body>');
+	response.write('<h1>Hello, World!</h1>');
+	response.write('</body>');
+	response.write('</html>');
+	response.end();
 });
 
 app.listen(app.get('port'), function() {
