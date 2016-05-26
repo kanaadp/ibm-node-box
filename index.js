@@ -51,12 +51,13 @@ app.post('/fire', function(request, response) {
 	response.end();
 });
 
-app.post('/auth', function(request, response) {
-	console.log("ayyyy!");
+app.get('/auth', function(request, response) {
+	console.log("great!");
 	console.log(request.method);
 	console.log(request.url);
 	console.log("done!");
 });
+
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
