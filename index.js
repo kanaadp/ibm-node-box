@@ -47,7 +47,7 @@ app.post('/fire', function(request, response) {
 	response.end();
 });
 
-app.get('/auth', function(request, response) {
+app.post('/auth', function(request, response) {
 	console.log("ayyyy!");
 	var data = querystring.stringify({
 		response_type: 'code',
@@ -77,21 +77,6 @@ app.get('/auth', function(request, response) {
 	req.write(data);
 	req.end();
 	console.log("done!");
-});
-
-app.post('/auth', function(request, response) {
-	console.log("same!");
-	response.end();
-});
-
-
-//not being used!
-app.get('/fire', function(request, response) {
-	console.log("hello!");
-	console.log(request.method);
-	console.log(request.url);
-	response.statusCode = 200;
-	response.render("pages/index");
 });
 
 app.listen(app.get('port'), function() {
