@@ -51,14 +51,16 @@ app.get('/auth', function(request, response) {
 	console.log("ayyyy!");
 	var data = querystring.stringify({
 		response_type: 'code',
+		redirect_uri: 'https://glacial-thicket-87017.herokuapp.com/auth',
 		client_id : '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
 		state: '2q20NI'
+
 	});
 
 	var options = {
 		host: 'account.box.com',
 		path: '/api/oauth2/authorize',
-		method: 'GET',
+		method: 'POST',
 		headers: {
 			'Content-Type': 'application/x-www-form-urlencoded',
 			'Content-Length': Buffer.byteLength(data)
