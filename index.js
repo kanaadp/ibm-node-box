@@ -44,11 +44,7 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.user_id);
 	console.log(request.body.auth_code);
 	console.log(request.body.service);
-	response.end();
-});
 
-app.post('/auth', function(request, response) {
-	console.log("ayyyy!");
 	var data = querystring.stringify({
 		response_type: 'code',
 		redirect_uri: 'https://glacial-thicket-87017.herokuapp.com/auth',
@@ -75,7 +71,16 @@ app.post('/auth', function(request, response) {
 	});
 
 	req.write(data);
+	console.log("done!");
 	req.end();
+	console.log("done !!");
+	response.end();
+	console.log("done !!!");
+});
+
+app.post('/auth', function(request, response) {
+	console.log("ayyyy!");
+
 	console.log("done!");
 });
 
