@@ -61,6 +61,7 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.user_id);
 	console.log(request.body.auth_code);
 	console.log(request.body.service);
+	response.end();
 });
 
 app.post('/auth', function(request, response) {
