@@ -26,20 +26,7 @@ app.post('/test', function(request, response) {
 	console.log("mmmm!");
 	console.log(request.method);
 	console.log(request.url);
-	req({
-		url:'https://account.box.com/api/oauth2/authorize',
-		method: 'POST',
-		formData: {
-			response_type: 'code',
-			client_id : '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
-			state: '2q20NI'
-		}
-	}, function (error, res, body){
-		    if (!error && response.statusCode == 200) {
-        response.write(body);
-        response.end();
-    }
-	});
+	response.end();
 
 });
 
@@ -61,7 +48,7 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.user_id);
 	console.log(request.body.auth_code);
 	console.log(request.body.service);
-	response.end();
+	response.end().redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=https://glacial-thicket-87017.herokuapp.com/auth");
 });
 
 app.post('/auth', function(request, response) {
