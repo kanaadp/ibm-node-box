@@ -26,7 +26,7 @@ app.post('/test', function(request, response) {
 	console.log("mmmm!");
 	console.log(request.method);
 	console.log(request.url);
-	response.end();
+	response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=https://glacial-thicket-87017.herokuapp.com/auth");
 
 });
 
@@ -48,13 +48,13 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.user_id);
 	console.log(request.body.auth_code);
 	console.log(request.body.service);
-	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=localhost:5000/auth");
-	response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=https://glacial-thicket-87017.herokuapp.com/auth");
+	response.end();
 });
 
 app.post('/auth', function(request, response) {
 	console.log("ayyyy!");
-
+	console.log(request.method);
+	console.log(request.url);
 	console.log("done!");
 });
 
