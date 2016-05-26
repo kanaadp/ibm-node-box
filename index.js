@@ -1,9 +1,9 @@
 var express = require('express');
-var app = express();
 var http = require('http');
-
+var querystring = require('querystring');
 var bodyParser = require('body-parser');
 
+var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -23,31 +23,7 @@ app.post('/test', function(request, response) {
 	console.log(request.method);
 	console.log(request.url);
 	response.statusCode = 200;
-	var options = {
-		host: 'account.box.com',
-		path: '/api/oauth2/authorize',
-		method: 'GET'
-	};
-
-	var callback = function(response) {
-		var str = '';
-
-  //another chunk of data has been recieved, so append it to `str`
-  response.on('data', function (chunk) {
-  	str += chunk;
-  });
-
-  //the whole response has been recieved, so we just print it out here
-  response.on('end', function () {
-  	console.log(str);
-  });
-}
-var req = http.request(options, callback);
-console.log("mmmmmmmmmm");
-req.write("response_type=&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=www.google.com");
-response.end();
-console.log("o man");
-response.render("pages/index");
+	response.render("pages/index");
 });
 
 app.get('/test', function(request, response) {
@@ -73,42 +49,36 @@ app.post('/fire', function(request, response) {
 
 app.get('/auth', function(request, response) {
 	console.log("ayyyy!");
+	var data = querystring.stringify({
+		response_type: 'code',
+		client_id : '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
+		state: '2q20NI'
+	});
+
 	var options = {
 		host: 'account.box.com',
 		path: '/api/oauth2/authorize',
-		method: 'GET'
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+			'Content-Length': Buffer.byteLength(data)
+		}
 	};
 
-	var callback = function(response) {
-		var str = '';
+	var req = http.request(options, function(res) {
+		res.setEncoding('utf8');
+		res.on('data', function (chunk) {
+			console.log("body: " + chunk);
+		});
+	});
 
-  //another chunk of data has been recieved, so append it to `str`
-  response.on('data', function (chunk) {
-  	str += chunk;
-  });
-
-  //the whole response has been recieved, so we just print it out here
-  response.on('end', function () {
-  	console.log(str);
-  });
-}
-var req = http.request(options, callback);
-console.log("mmmmmmmmmm");
-req.write("response_type=&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=www.google.com");
-response.end();
-console.log("o man");
+	req.write(data);
+	req.end();
+	console.log("done!");
 });
 
 app.post('/auth', function(request, response) {
 	console.log("same!");
-	console.log(request.method);
-	console.log(request.url);
-	console.log(request.body.file_name);
-	console.log(request.body.file_id);
-	console.log(request.body.user_name);
-	console.log(request.body.user_id);
-	console.log(request.body.auth_code);
-	console.log(request.body.service);
 	response.end();
 });
 
