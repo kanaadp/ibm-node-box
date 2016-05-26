@@ -55,6 +55,8 @@ app.get('/auth', function(request, response) {
 	console.log("great!");
 	console.log(request.method);
 	console.log(request.url);
+	response.statusCode = 200;
+	response.render("pages/index");
 	console.log("done!");
 });
 
