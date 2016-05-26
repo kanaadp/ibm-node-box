@@ -23,7 +23,31 @@ app.post('/test', function(request, response) {
 	console.log(request.method);
 	console.log(request.url);
 	response.statusCode = 200;
-	response.render("pages/index");
+	var options = {
+		host: 'account.box.com',
+		path: '/api/oauth2/authorize',
+		method: 'GET'
+	};
+
+	var callback = function(response) {
+		var str = '';
+
+  //another chunk of data has been recieved, so append it to `str`
+  response.on('data', function (chunk) {
+  	str += chunk;
+  });
+
+  //the whole response has been recieved, so we just print it out here
+  response.on('end', function () {
+  	console.log(str);
+  });
+}
+var req = http.request(options, callback);
+console.log("mmmmmmmmmm");
+req.write("response_type=&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=www.google.com");
+response.end();
+console.log("o man");
+response.render("pages/index");
 });
 
 app.get('/test', function(request, response) {
