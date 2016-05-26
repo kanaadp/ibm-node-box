@@ -2,6 +2,10 @@ var express = require('express');
 var http = require('http');
 var querystring = require('querystring');
 var bodyParser = require('body-parser');
+var req = require('request');
+
+
+
 
 var app = express();
 app.use(bodyParser.json()); // support json encoded bodies
@@ -22,8 +26,21 @@ app.post('/test', function(request, response) {
 	console.log("mmmm!");
 	console.log(request.method);
 	console.log(request.url);
-	response.statusCode = 200;
-	response.render("pages/index");
+	req({
+		url:'https://account.box.com/api/oauth2/authorize',
+		method: 'POST',
+		formData: {
+			response_type: 'code',
+			client_id : '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
+			state: '2q20NI'
+		}
+	}, function (error, res, body){
+		    if (!error && response.statusCode == 200) {
+        response.write(body);
+        response.end();
+    }
+	});
+
 });
 
 app.get('/test', function(request, response) {
@@ -44,38 +61,6 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.user_id);
 	console.log(request.body.auth_code);
 	console.log(request.body.service);
-
-	var data = querystring.stringify({
-		response_type: 'code',
-		redirect_uri: 'https://glacial-thicket-87017.herokuapp.com/auth',
-		client_id : '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
-		state: '2q20NI'
-
-	});
-
-	var options = {
-		host: 'account.box.com',
-		path: '/api/oauth2/authorize',
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			'Content-Length': Buffer.byteLength(data)
-		}
-	};
-
-	var req = http.request(options, function(res) {
-		res.setEncoding('utf8');
-		res.on('data', function (chunk) {
-			console.log("body: " + chunk);
-		});
-	});
-
-	req.write(data);
-	console.log("done!");
-	req.end();
-	console.log("done !!");
-	response.end();
-	console.log("done !!!");
 });
 
 app.post('/auth', function(request, response) {
