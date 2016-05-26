@@ -14,7 +14,7 @@
     "express": "4.13.3",
     "body-parser": "1.15.1",
     "fs": "0.0.2",
-    "request": "9.9.9"
+    "request": "2.72.0"
   },
   "repository": {
     "type": "git",
