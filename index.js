@@ -50,7 +50,7 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.service);
 	console.log(request.body.user_name);
 	console.log(request.body.password);
-	console.log(request.body.file);
+	console.log(request.body.file.constructor.name);
 	response.end();
 });
 
