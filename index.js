@@ -61,8 +61,8 @@ app.get('/auth', function(request, response) {
 		method: 'POST',
 		uri: "https://api.box.com/oauth2/token",
 		formData: {
-			grant_type: 'authorization_code';
-			code: request.query.code;
+			grant_type: 'authorization_code',
+			code: request.query.code,
 			client_id: '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
 			client_secret: "B0h3s2QCP2XA97ciVuCnUh3WgJPa1O5U"
 		}
