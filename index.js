@@ -57,7 +57,7 @@ app.get('/auth', function(request, response) {
 	console.log(request.url);
 	console.log(request.query.code);
 
-	request({
+	req({
 		method: 'POST',
 		uri: "https://api.box.com/oauth2/token",
 		formData: {
