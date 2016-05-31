@@ -50,7 +50,6 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.service);
 	console.log(request.body.user_name);
 	console.log(request.body.password);
-	console.log(request.body);
 	response.end();
 });
 
@@ -85,4 +84,19 @@ app.get('/auth', function(request, response) {
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
+});
+
+app.post('/webhook', function(request, response) {
+	console.log("webhook post request received!");
+	console.log(request.method);
+	console.log(request.url);
+	response.end();
+});
+
+app.get('/webhook', function(request, response) {
+	console.log("webhook get request received!!");
+	console.log(request.method);
+	console.log(request.url);
+	response.statusCode = 200;
+	response.end();
 });
