@@ -50,6 +50,24 @@ app.post('/fire', function(request, response) {
 	console.log(request.body.service);
 	console.log(request.body.user_name);
 	console.log(request.body.password);
+
+		req({
+		method: 'POST',
+		uri: "https://api.box.com/oauth2/token",
+		formData: {
+			grant_type: 'authorization_code',
+			code: request.body.auth_code,
+			client_id: '5rse5hy8n9hqu8xh62d45hns3d61vm4v',
+			client_secret: "B0h3s2QCP2XA97ciVuCnUh3WgJPa1O5U"
+		}
+	}, function(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var info = JSON.parse(body);
+    console.log(info.access_token);
+    console.log(info.refresh_token);
+  }
+})
+
 	response.end();
 });
 
