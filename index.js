@@ -17,20 +17,20 @@ app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
 
-	response.render('pages/index');
-});
-
+//SECOND (Client Call back URL)
 app.post('/test', function(request, response) {
 	console.log("mmmm!");
 	console.log(request.method);
 	console.log(request.url);
 	response.end();
-	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=https://glacial-thicket-87017.herokuapp.com/auth");
+
+	//Redirects to authorization
+	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
 
 });
 
+//Callback after authorization has been processed
 app.get('/test', function(request, response) {
 	console.log("yo!");
 	console.log(request.method);
@@ -39,6 +39,8 @@ app.get('/test', function(request, response) {
 	response.render("pages/index");
 });
 
+
+//FIRST (Preliminary callback URL)
 app.post('/fire', function(request, response) {
 	console.log("hi!");
 	console.log(request.method);
@@ -62,6 +64,7 @@ app.post('/fire', function(request, response) {
 			client_secret: "B0h3s2QCP2XA97ciVuCnUh3WgJPa1O5U"
 		}
 	}, function(error, response, body) {
+		//Callback printing file access token
   if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
     console.log(info.access_token);
@@ -72,6 +75,8 @@ app.post('/fire', function(request, response) {
 	response.end();
 });
 
+
+//AUTH callback
 app.get('/auth', function(request, response) {
 	console.log("great!");
 	console.log(request.method);
@@ -88,6 +93,7 @@ app.get('/auth', function(request, response) {
 			client_secret: "B0h3s2QCP2XA97ciVuCnUh3WgJPa1O5U"
 		}
 	}, function(error, response, body) {
+		//Callback printing access toekn
   if (!error && response.statusCode == 200) {
     var info = JSON.parse(body);
     console.log(info.access_token);
@@ -105,6 +111,8 @@ app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
 });
 
+
+//Webhook callbacks
 app.post('/webhook', function(request, response) {
 	console.log("webhook post request received!");
 	console.log(request.method);
