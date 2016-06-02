@@ -40,48 +40,37 @@ app.post('/prelim', function(request, response) {
 	}, function(error, response, body) {
 		//Callback printing file access token
 		if (!error && response.statusCode == 200) {
-			console.log("Authentication successful!");
+			console.log("Limited Authentication successful!");
 			var info = JSON.parse(body);
 			console.log("     " + "Access Token: " + info.access_token);
 			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
+			response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 		} else{
 			console.log("Authentication failure!");
 		}
 	})
 
-	response.render("pages/index");
-	
+	response.end();
 });
 
 
-//SECOND (Client Call back URL)
-app.post('/client', function(request, response) {
+
+app.get('/splash', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log(request.method);
 	console.log(request.url);
 
 	response.statusCode = 200;
 	//TOOD: pages/index needs to be nyse
-	response.end();
+	response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
+
 
 	//Redirects to authorization
 	
 });
 
-//SECOND (Client Call back URL)
-app.get('/client', function(request, response) {
-	console.log("Post Request to client callback URL");
-	console.log(request.method);
-	console.log(request.url);
 
-	response.statusCode = 200;
-	//TOOD: pages/index needs to be nyse
-	response.end();
-
-	//Redirects to authorization
-	
-});
 //response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
 //AUTH callback
 app.get('/auth', function(request, response) {
