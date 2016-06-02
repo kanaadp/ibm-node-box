@@ -54,17 +54,12 @@ app.post('/prelim', function(request, res) {
 	res.end();
 	
 });
-app.get('/client', function(request, res) {
-	console.log("fug");
-	response.end();
-});
+//SECOND (Client callback URL)
 app.post('/client', function(request, res) {
-	console.log("mmm");
-	response.end();
-});
-app.get('/prelim', function(request, res) {
-	console.log("rip");
-	response.end();
+	console.log("Post Request to client callback URL");
+	console.log("Rendering landing page");
+	response.statusCode = 200;
+	response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 });
 
 //
