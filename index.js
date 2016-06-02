@@ -56,11 +56,15 @@ app.post('/prelim', function(request, res) {
 app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log("Rendering landing page");
-	response.write("limitedAccessToken" + limitedAccessToken)
-	response.end();
 });
 
-//
+//Full Auth process (Client callback URL)
+app.get('/fullAuth', function(request, response) {
+	console.log("Starting full authentication");
+	response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=https://169.45.207.229/auth");
+
+});
+
 //AUTH callback
 app.get('/auth', function(request, response) {
 	console.log("great!");
@@ -99,7 +103,14 @@ app.get('/test', function(request, response) {
 	response.end();
 });
 
-
+//SECOND (Client callback URL)
+app.get('/info', function(request, response) {
+	console.log("Post Request to client callback URL");
+	console.log("Rendering landing page");
+	response.write("limitedAccessToken" + limitedAccessToken);
+	response.write("fullAccessToken" + fullAccessToken);
+	response.end();
+});
 
 app.listen(app.get('port'), function() {
 	console.log('Node app is running on port', app.get('port'));
