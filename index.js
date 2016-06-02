@@ -68,6 +68,19 @@ app.post('/client', function(request, response) {
 	
 });
 
+//SECOND (Client Call back URL)
+app.get('/client', function(request, response) {
+	console.log("Post Request to client callback URL");
+	console.log(request.method);
+	console.log(request.url);
+
+	response.statusCode = 200;
+	//TOOD: pages/index needs to be nyse
+	response.render("pages/index");
+
+	//Redirects to authorization
+	
+});
 //response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
 //AUTH callback
 app.get('/auth', function(request, response) {
