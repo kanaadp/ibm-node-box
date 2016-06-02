@@ -45,7 +45,6 @@ app.post('/prelim', function(request, res) {
 			console.log("     " + "Access Token: " + info.access_token);
 			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
-			app.render("pages/index");
 			} else{
 			console.log("Authentication failure!");
 		}
