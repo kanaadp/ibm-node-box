@@ -45,26 +45,11 @@ app.post('/prelim', function(request, res) {
 			console.log("     " + "Access Token: " + info.access_token);
 			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
-			res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
-		} else{
+				} else{
 			console.log("Authentication failure!");
 		}
 	})
-});
-
-
-
-app.get('/splash', function(request, response) {
-	console.log("Post Request to client callback URL");
-	console.log(request.method);
-	console.log(request.url);
-
-	response.statusCode = 200;
-	//TOOD: pages/index needs to be nyse
-	response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
-
-
-	//Redirects to authorization
+	res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 	
 });
 
