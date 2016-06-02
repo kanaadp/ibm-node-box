@@ -59,6 +59,7 @@ app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log("Rendering landing page");
 	response.statusCode = 200;
+	response.setHeader('content-type', 'text/javascript');
 	response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 });
 
