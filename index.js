@@ -20,13 +20,13 @@ var fullAccessToken = "";
 //FIRST (Preliminary callback URL)
 app.post('/prelim', function(request, response) {
 	console.log("Post Request to preliminary callback URL");
-	console.log(request.method);
-	console.log(request.url);
-	console.log(request.body.file_name);
-	console.log("File ID: " + request.body.file_id);
-	console.log(request.body.user_name);
-	console.log("File ID: " +request.body.user_id);
-	console.log("Received Metadata: " +request.body.metadata_1);
+	console.log("     " + request.method);
+	console.log("     " + request.url);
+	console.log("     " + request.body.file_name);
+	console.log("     " + "File ID: " + request.body.file_id);
+	console.log("     " + request.body.user_name);
+	console.log("     " + "User ID: " +request.body.user_id);
+	console.log("     " + "Received Metadata: " +request.body.metadata_1);
 	console.log("Authenticating using auth code: " + request.body.auth_code);
 	req({
 		method: 'POST',
@@ -42,8 +42,8 @@ app.post('/prelim', function(request, response) {
 		if (!error && response.statusCode == 200) {
 			console.log("Authentication successful!");
 			var info = JSON.parse(body);
-			console.log("Access Token: " + info.access_token);
-			console.log("Refresh Token: " + info.refresh_token);
+			console.log("     " + "Access Token: " + info.access_token);
+			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
 		} else{
 			console.log("Authentication failure!");
@@ -65,10 +65,10 @@ app.post('/client', function(request, response) {
 	response.render("pages/index");
 
 	//Redirects to authorization
-	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
-
+	
 });
 
+//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
 //AUTH callback
 app.get('/auth', function(request, response) {
 	console.log("great!");
@@ -95,7 +95,7 @@ app.get('/auth', function(request, response) {
 	})
 
 	response.statusCode = 200;
-	response.render("pages/index");
+	response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 	console.log("done!");
 });
 
