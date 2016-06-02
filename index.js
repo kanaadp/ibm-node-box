@@ -50,7 +50,8 @@ app.post('/prelim', function(request, res) {
 		}
 	})
 	res.statusCode = 200;
-	res.redirect("/prelim")
+	res.write("hello")
+	res.end();
 	
 });
 app.get('/prelim', function(request, res) {
