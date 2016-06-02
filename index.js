@@ -58,6 +58,14 @@ app.get('/client', function(request, res) {
 	console.log("fug");
 	response.end();
 }
+app.post('/client', function(request, res) {
+	console.log("mmm");
+	response.end();
+}
+app.get('/prelim', function(request, res) {
+	console.log("rip");
+	response.end();
+}
 
 //
 //AUTH callback
