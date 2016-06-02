@@ -55,7 +55,7 @@ app.post('/prelim', function(request, res) {
 //SECOND (Client callback URL)
 app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
-	console.log("Rendering landing page");
+	response.end();
 });
 
 //Full Auth process (Client callback URL)
