@@ -50,7 +50,7 @@ app.post('/prelim', function(request, res) {
 		}
 	})
 	res.statusCode = 200;
-	res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
+	res.redirect("/prelim")
 	
 });
 app.get('/prelim', function(request, res) {
