@@ -56,8 +56,8 @@ app.post('/prelim', function(request, res) {
 app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log("Rendering landing page");
-	app.render("pages/index");
-	
+	response.write("limitedAccessToken" + info.limitedAccessToken)
+	response.end();
 });
 
 //
