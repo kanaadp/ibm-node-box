@@ -50,7 +50,8 @@ app.post('/prelim', function(request, response) {
 		}
 	})
 
-	response.end();
+	response.render("pages/index");
+	
 });
 
 
@@ -62,7 +63,7 @@ app.post('/client', function(request, response) {
 
 	response.statusCode = 200;
 	//TOOD: pages/index needs to be nyse
-	response.render("pages/index");
+	response.end();
 
 	//Redirects to authorization
 	
@@ -76,7 +77,7 @@ app.get('/client', function(request, response) {
 
 	response.statusCode = 200;
 	//TOOD: pages/index needs to be nyse
-	response.render("pages/index");
+	response.end();
 
 	//Redirects to authorization
 	
