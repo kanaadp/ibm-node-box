@@ -18,7 +18,7 @@ var limitedAccessToken = "";
 var fullAccessToken = "";
 
 //FIRST (Preliminary callback URL)
-app.post('/prelim', function(request, response) {
+app.post('/prelim', function(request, res) {
 	console.log("Post Request to preliminary callback URL");
 	console.log("     " + request.method);
 	console.log("     " + request.url);
@@ -45,13 +45,11 @@ app.post('/prelim', function(request, response) {
 			console.log("     " + "Access Token: " + info.access_token);
 			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
-			response.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
+			res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 		} else{
 			console.log("Authentication failure!");
 		}
 	})
-
-	response.end();
 });
 
 
