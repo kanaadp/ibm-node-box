@@ -3,11 +3,8 @@ var http = require('http');
 var querystring = require('querystring');
 var bodyParser = require('body-parser');
 var req = require('request');
-
-
-
-
 var app = express();
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }))
 
@@ -17,44 +14,21 @@ app.set('port', (process.env.PORT || 5000));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-
-//SECOND (Client Call back URL)
-app.post('/test', function(request, response) {
-	console.log("mmmm!");
-	console.log(request.method);
-	console.log(request.url);
-	response.end();
-
-	//Redirects to authorization
-	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
-
-});
-
-//Callback after authorization has been processed
-app.get('/test', function(request, response) {
-	console.log("yo!");
-	console.log(request.method);
-	console.log(request.url);
-	response.statusCode = 200;
-	response.render("pages/index");
-});
-
+var limitedAccessToken = "";
+var fullAccessToken = "";
 
 //FIRST (Preliminary callback URL)
-app.post('/fire', function(request, response) {
-	console.log("hi!");
+app.post('/prelim', function(request, response) {
+	console.log("Post Request to preliminary callback URL");
 	console.log(request.method);
 	console.log(request.url);
 	console.log(request.body.file_name);
-	console.log(request.body.file_id);
+	console.log("File ID: " + request.body.file_id);
 	console.log(request.body.user_name);
-	console.log(request.body.user_id);
-	console.log(request.body.auth_code);
-	console.log(request.body.service);
-	console.log(request.body.user_name);
-	console.log(request.body.password);
-
-		req({
+	console.log("File ID: " +request.body.user_id);
+	console.log("Received Metadata: " +request.body.metadata_1);
+	console.log("Authenticating using auth code: " + request.body.auth_code);
+	req({
 		method: 'POST',
 		uri: "https://api.box.com/oauth2/token",
 		formData: {
@@ -65,16 +39,35 @@ app.post('/fire', function(request, response) {
 		}
 	}, function(error, response, body) {
 		//Callback printing file access token
-  if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
-    console.log(info.access_token);
-    console.log(info.refresh_token);
-  }
-})
+		if (!error && response.statusCode == 200) {
+			console.log("Authentication successful!");
+			var info = JSON.parse(body);
+			console.log("Access Token: " + info.access_token);
+			console.log("Refresh Token: " + info.refresh_token);
+			limitedAuthToken = info.access_token;
+		} else{
+			console.log("Authentication failure!");
+		}
+	})
 
 	response.end();
 });
 
+
+//SECOND (Client Call back URL)
+app.post('/client', function(request, response) {
+	console.log("Post Request to client callback URL");
+	console.log(request.method);
+	console.log(request.url);
+
+	response.statusCode = 200;
+	//TOOD: pages/index needs to be nyse
+	response.render("pages/index");
+
+	//Redirects to authorization
+	//response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
+
+});
 
 //AUTH callback
 app.get('/auth', function(request, response) {
@@ -94,17 +87,26 @@ app.get('/auth', function(request, response) {
 		}
 	}, function(error, response, body) {
 		//Callback printing access toekn
-  if (!error && response.statusCode == 200) {
-    var info = JSON.parse(body);
-    console.log(info.access_token);
-    console.log(info.refresh_token);
-  }
-})
+		if (!error && response.statusCode == 200) {
+			var info = JSON.parse(body);
+			console.log(info.access_token);
+			console.log(info.refresh_token);
+		}
+	})
 
 	response.statusCode = 200;
 	response.render("pages/index");
 	console.log("done!");
 });
+
+//Callback after authorization has been processed
+app.get('/test', function(request, response) {
+	console.log("yo!");
+	console.log(request.method);
+	console.log(request.url);
+	response.end();
+});
+
 
 
 app.listen(app.get('port'), function() {
