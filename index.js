@@ -53,7 +53,10 @@ app.post('/prelim', function(request, res) {
 	res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 	
 });
-
+app.get('/prelim', function(request, res) {
+	console.log("fug");
+	response.end();
+}
 
 //response.redirect("https://account.box.com/api/oauth2/authorize?response_type=code&client_id=5rse5hy8n9hqu8xh62d45hns3d61vm4v&state=2q20NI&redirect_uri=169.45.207.229:5000/auth");
 //AUTH callback
