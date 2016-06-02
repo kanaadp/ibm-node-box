@@ -49,8 +49,6 @@ app.post('/prelim', function(request, res) {
 			console.log("Authentication failure!");
 		}
 	})
-	res.statusCode = 200;
-	res.write("hello")
 	res.end();
 	
 });
@@ -58,7 +56,7 @@ app.post('/prelim', function(request, res) {
 app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log("Rendering landing page");
-	response.statusCode = 200;
+
 	response.render("pages/index");
 });
 
