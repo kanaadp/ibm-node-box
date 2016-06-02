@@ -49,6 +49,7 @@ app.post('/prelim', function(request, res) {
 			console.log("Authentication failure!");
 		}
 	})
+	res.statusCode = 200;
 	res.render("pages/index", {limited : limitedAccessToken, full: fullAccessToken});
 	
 });
