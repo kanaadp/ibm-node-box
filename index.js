@@ -45,7 +45,8 @@ app.post('/prelim', function(request, res) {
 			console.log("     " + "Access Token: " + info.access_token);
 			console.log("     " + "Refresh Token: " + info.refresh_token);
 			limitedAuthToken = info.access_token;
-				} else{
+			app.render("pages/index");
+			} else{
 			console.log("Authentication failure!");
 		}
 	})
@@ -56,8 +57,8 @@ app.post('/prelim', function(request, res) {
 app.post('/client', function(request, response) {
 	console.log("Post Request to client callback URL");
 	console.log("Rendering landing page");
-
-	response.render("pages/index");
+	app.render("pages/index");
+	
 });
 
 //
